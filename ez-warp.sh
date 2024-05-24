@@ -28,7 +28,9 @@ fi
 #installing necessary packages
 
 apt update || true
-apt install -y wireguard wireguard-dkms wireguard-tools resolvconf || true
+for pkg in wireguard wireguard-dkms wireguard-tools resolvconf; do
+    sudo apt install -y $pkg || true
+done
 
 #checking packages
 if ! command -v wg-quick &> /dev/null
