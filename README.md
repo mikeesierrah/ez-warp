@@ -13,7 +13,7 @@ this script installs and configurates Cloudflare WARP with Wireguard core on lin
 **run the script as root**
 1. run this command:
 ```bash
-bash <(curl -Ls https://github.com/mikeesierrah/ez-warp/raw/master/ez-warp.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/mikeesierrah/ez-warp/main/ez-warp.sh)
 ```
 2. check if WARP interface is running properly via running 'wg' command
 ```bash
