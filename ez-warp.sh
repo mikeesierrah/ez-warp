@@ -27,10 +27,14 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 #installing necessary packages
 
-apt update || true
-for pkg in wireguard wireguard-dkms wireguard-tools resolvconf; do
-    sudo apt install -y $pkg || true
-done
+apt update
+ubuntu_version=$(lsb_release -r | awk '{print $2}')
+if [[ "$ubuntu_version" == "24.04" ]]; then
+  sudo apt install -y wireguard
+elif [[ "$ubuntu_version" == "22.04" || "$ubuntu_version" == "20.04" ]]; then
+  sudo apt install -y wireguard-dkms wireguard-tools resolvconf
+fi
+
 
 #checking packages
 if ! command -v wg-quick &> /dev/null
@@ -47,7 +51,7 @@ fi
 clear
 #downloading assets
 arch=$(architecture)
-wget -O "/usr/bin/wgcf" https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_$arch
+wget -O "/usr/bin/wgcf" https://github.com/ViRb3/wgcf/releases/download/v2.2.23/wgcf_2.2.19_linux_$arch
 chmod +x /usr/bin/wgcf
 
 
