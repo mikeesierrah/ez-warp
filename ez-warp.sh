@@ -27,11 +27,11 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 #installing necessary packages
 
-apt update
-ubuntu_version=$(lsb_release -r | awk '{print $2}')
-if [[ "$ubuntu_version" == "24.04" ]]; then
+apt update && apt upgrade
+ubuntu_major_version=$(echo "$ubuntu_version" | cut -d'.' -f1)
+if [[ "$ubuntu_major_version" == "24" ]]; then
   sudo apt install -y wireguard
-elif [[ "$ubuntu_version" == "22.04" || "$ubuntu_version" == "20.04" ]]; then
+elif [[ "$ubuntu_major_version" == "22" || "$ubuntu_major_version" == "20" ]]; then
   sudo apt install -y wireguard-dkms wireguard-tools resolvconf
 fi
 
