@@ -28,12 +28,13 @@ fi
 #installing necessary packages
 
 apt update && apt upgrade
-ubuntu_major_version=$(echo "$ubuntu_version" | cut -d'.' -f1)
+ubuntu_major_version=$(grep DISTRIB_RELEASE /etc/lsb-release | cut -d'=' -f2 | cut -d'.' -f1)
 if [[ "$ubuntu_major_version" == "24" ]]; then
   sudo apt install -y wireguard
-elif [[ "$ubuntu_major_version" == "22" || "$ubuntu_major_version" == "20" ]]; then
+else
   sudo apt install -y wireguard-dkms wireguard-tools resolvconf
 fi
+
 
 
 #checking packages
