@@ -27,7 +27,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 #installing necessary packages
 
-apt update && apt upgrade
+apt update
 ubuntu_major_version=$(grep DISTRIB_RELEASE /etc/lsb-release | cut -d'=' -f2 | cut -d'.' -f1)
 if [[ "$ubuntu_major_version" == "24" ]]; then
   sudo apt install -y wireguard
