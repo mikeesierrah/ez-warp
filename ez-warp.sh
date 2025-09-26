@@ -64,7 +64,7 @@ rm -rf wgcf-account.toml &> /dev/null || true
 rm -rf /etc/wireguard/warp.conf &> /dev/null || true
 # main dish
 
-wgcf register
+wgcf register --accept-tos || true
 read -rp "Do you want to use your own key? (Y/n): " response
 if [[ $response =~ ^[Yy]$ ]]; then
     read -rp "ENTER YOUR LICENSE: " LICENSE_KEY
