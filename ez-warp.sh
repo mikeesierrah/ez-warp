@@ -29,7 +29,7 @@ fi
 
 apt update
 ubuntu_major_version=$(grep DISTRIB_RELEASE /etc/lsb-release | cut -d'=' -f2 | cut -d'.' -f1)
-if [[ "$ubuntu_major_version" == "24" ]]; then
+if [[ "$ubuntu_major_version" -ge 24 ]]; then
   sudo apt install -y wireguard
 else
   sudo apt install -y wireguard-dkms wireguard-tools resolvconf
@@ -73,30 +73,6 @@ if [[ $response =~ ^[Yy]$ ]]; then
 fi
 
 wgcf generate
-
-
-
-#creating config in the wireguard directory
-
-# this algorithm is  deprecated
-
-# PRIVATE_KEY=$(grep -oP 'PrivateKey\s*=\s*\K.*' wgcf-profile.conf)
-# cat << EOF > "/etc/wireguard/warp.conf"
-# [Interface]
-# PrivateKey = $PRIVATE_KEY
-# Address = 172.16.0.2/32
-# Address = 2606:4700:110:8a1a:85ef:da37:b891:8d01/128
-# DNS = 1.1.1.1
-# MTU = 1280
-# Table = off
-# [Peer]
-# PublicKey = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
-# AllowedIPs = 0.0.0.0/0
-# AllowedIPs = ::/0
-# Endpoint = engage.cloudflareclient.com:2408
-# EOF
-
-# the better algorithm
 
 sed -i '/\[Peer\]/i Table = off' wgcf-profile.conf
 mv wgcf-profile.conf /etc/wireguard/warp.conf
